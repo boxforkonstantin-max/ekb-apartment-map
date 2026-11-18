@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+  <meta name="description" content="Интерактивная карта квартир в новостройках Екатеринбурга до 9,5 млн рублей.">
+  <title>Квартиры Екатеринбурга до 9,5 млн ₽ — карта вариантов</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#results">К списку квартир</a>
+  <header class="topbar">
+    <div>
+      <p class="context">Екатеринбург · радиус 5 км от площади 1905 года</p>
+      <h1>Квартиры до 9,5 млн ₽</h1>
+    </div>
+    <div class="topbar-meta">
+      <span id="result-count" aria-live="polite">Загрузка вариантов…</span>
+      <span>Проверено 18.11.2026</span>
+    </div>
+  </header>
+
+  <section class="filters" aria-label="Фильтры квартир">
+    <label>
+      <span>Цена до</span>
+      <select id="price-filter">
+        <option value="9500000">9,5 млн ₽</option>
+        <option value="8500000">8,5 млн ₽</option>
+        <option value="7500000">7,5 млн ₽</option>
+        <option value="7000000">7 млн ₽</option>
+      </select>
+    </label>
+    <label>
+      <span>Площадь от</span>
+      <select id="area-filter">
+        <option value="30">30 м²</option>
+        <option value="32">32 м²</option>
+        <option value="35">35 м²</option>
+        <option value="40">40 м²</option>
+      </select>
+    </label>
+    <label>
+      <span>Планировка</span>
+      <select id="type-filter">
+        <option value="all">Все</option>
+        <option value="studio">Студии</option>
+        <option value="separate">С отдельной спальней</option>
+      </select>
+    </label>
+    <label>
+      <span>Отделка</span>
+      <select id="finish-filter">
+        <option value="all">Любая</option>
+        <option value="ready">Чистовая / Комфорт+</option>
+        <option value="prefinish">Предчистовая</option>
+      </select>
+    </label>
+    <label class="check-control">
+      <input id="confirmed-filter" type="checkbox" checked>
+      <span>Только прямые лоты</span>
+    </label>
+    <button id="reset-filters" class="text-button" type="button">Сбросить</button>
+  </section>
+
+  <main class="workspace">
+    <section class="map-panel" aria-label="Карта жилых комплексов">
+      <div id="map"></div>
+      <div class="map-legend" aria-label="Условные обозначения">
+        <span><i class="dot dot-confirmed"></i> прямой лот</span>
+        <span><i class="dot dot-reserve"></i> ориентир</span>
+      </div>
+      <button id="fit-map" class="map-button" type="button">Показать все</button>
+    </section>
+
+    <section class="results-panel" id="results" aria-labelledby="results-title">
+      <div class="results-heading">
+        <div>
+          <h2 id="results-title">Варианты</h2>
+          <p>Выберите строку или маркер на карте</p>
+        </div>
+        <label class="sort-control">
+          <span>Сортировка</span>
+          <select id="sort-filter">
+            <option value="price">Сначала дешевле</option>
+            <option value="area">Сначала просторнее</option>
+            <option value="ppm">Цена за м²</option>
+          </select>
+        </label>
+      </div>
+      <div id="apartment-list" class="apartment-list"></div>
+      <div id="empty-state" class="empty-state" hidden>
+        <strong>Под эти фильтры вариантов нет.</strong>
+        <p>Увеличьте цену, уменьшите площадь или включите ориентировочные предложения.</p>
+        <button type="button" data-reset>Сбросить фильтры</button>
+      </div>
+    </section>
+  </main>
+
+  <aside id="details" class="details" aria-labelledby="details-title" aria-hidden="true">
+    <button id="details-close" class="details-close" type="button" aria-label="Закрыть карточку">×</button>
+    <div id="details-content"></div>
+  </aside>
+  <div id="details-backdrop" class="details-backdrop" hidden></div>
+
+  <footer>
+    <p>Цены и наличие меняются. Перед бронью перепроверьте карточку квартиры, семейную ипотеку, состав отделки и проектную декларацию.</p>
+    <p>Карта: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Расстояния рассчитаны по прямой.</p>
+  </footer>
+
+  <noscript>Для работы карты и фильтров требуется JavaScript.</noscript>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
+
